@@ -1,24 +1,26 @@
 import React from 'react';
 import './SocialLogin.css'
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { useNavigate } from 'react-router-dom';
 
 const SocialLogin = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [signInWithGithub, user1, loading1, error1] = useSignInWithGithub(auth);
+
     const navigate = useNavigate();
     let errorElement;
 
 
     // catch error 
-    if (error) {
+    if (error || error1) {
 
         errorElement = <div>
-                <p className='text-danger'>Error: {error.message}</p>
+                <p className='text-danger'>Error: {error?.message} {error1?.message}</p>
             </div>
 
     }
-    if(user){
+    if(user || user1){
         navigate('/home');
     }
 
@@ -48,7 +50,8 @@ const SocialLogin = () => {
 
 
                 {/* GitHub SignIn  */}
-            <button className='btn btn-primary mt-2 d-block mx-auto w-50'>
+
+            <button onClick={()=>signInWithGithub()} className='btn btn-primary mt-2 d-block mx-auto w-50'>
                 <img className='img' src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="" />
                 GitHub Sign In</button>
         </div>
