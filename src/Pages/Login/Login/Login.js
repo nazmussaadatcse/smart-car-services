@@ -1,9 +1,12 @@
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import Loading from '../../../Shared/Loading/Loading';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const emailRef = useRef('');
@@ -21,6 +24,10 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
 
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+
+    if(loading || sending){
+        return <Loading></Loading>
+    }
 
     if(user){
         navigate(from,{replace:true});
@@ -49,8 +56,13 @@ const Login = () => {
 
     const resetPassword= async()=>{
         const email = emailRef.current.value;
-        await sendPasswordResetEmail(email);
-        alert('Sent Reset Email');
+        if(email){
+            await sendPasswordResetEmail(email);
+            toast('Sent Reset Email');
+        }
+        else{
+            toast('please enter your email address');
+        }
 
     }
 
@@ -59,7 +71,7 @@ const Login = () => {
             <h2 className='text-primary text-left'>Login</h2>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3 text-left" controlId="formBasicEmail">
-                    <Form.Control ref={emailRef} required type="email" placeholder="Enter email" />
+                    <Form.Control ref={emailRef} required type="email" placeholder="Enter email address" />
                 </Form.Group>
 
                 <Form.Group className="mb-3 text-left" controlId="formBasicPassword">
@@ -76,10 +88,11 @@ const Login = () => {
             <p>New To Smart Car?<br></br> <Link 
              to="/register" onClick={navigateRegister} className='text-primary text-decoration-none'>Please Register</Link></p>
 
-            <p>Forget Password?<br></br> <Link 
-             to="/register" onClick={resetPassword} className='text-primary text-decoration-none'>Reset</Link></p>
+            <p>Forget Password?<br></br> <button 
+             onClick={resetPassword} className='btn btn-link text-primary text-decoration-none'>Reset</button></p>
              
              <SocialLogin></SocialLogin>
+             <ToastContainer/>
         </div>
     );
 };
