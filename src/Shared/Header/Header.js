@@ -10,9 +10,9 @@ import logo from '../../images/logo.png'
 
 const Header = () => {
   const [user] = useAuthState(auth);
+  // console.log(user.displayName);
 
   const handleSignOut=()=>{
-    console.log("clicked signout");
     signOut(auth);
   }
 
@@ -47,7 +47,7 @@ const Header = () => {
             <Nav.Link as={Link} to="/about">About</Nav.Link>
             {
               user?
-                <button className='btn btn-link text-white text-decoration-none' onClick={handleSignOut}>SignOut</button>
+                <button className='btn btn-link text-white text-decoration-none' onClick={handleSignOut}>SignOut  {user?.displayName}</button>
               :
               <Nav.Link as={Link} to ="login">
               Login
