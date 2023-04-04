@@ -5,6 +5,7 @@ import './Register.css'
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import Loading from '../../../Shared/Loading/Loading';
+import PageTitle from '../../../Shared/PageTitle/PageTitle';
 
 const Register = () => {
 
@@ -65,6 +66,7 @@ const Register = () => {
                 to="/login" onClick={navigateLogin} className='text-primary text-decoration-none'>Please Login</Link></p>
                 
                 <SocialLogin></SocialLogin>
+                <PageTitle title="Register"></PageTitle>
         </div>
     );
 };

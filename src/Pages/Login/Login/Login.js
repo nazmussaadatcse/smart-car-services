@@ -1,12 +1,13 @@
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import Loading from '../../../Shared/Loading/Loading';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PageTitle from '../../../Shared/PageTitle/PageTitle';
 
 const Login = () => {
     const emailRef = useRef('');
@@ -68,6 +69,7 @@ const Login = () => {
     }
 
     return (
+        
         <div className='container w-50 mx-auto'>
             <h2 className='text-primary text-left'>Login</h2>
             <Form onSubmit={handleSubmit}>
@@ -94,6 +96,7 @@ const Login = () => {
              
              <SocialLogin></SocialLogin>
              <ToastContainer/>
+             <PageTitle title="Login"></PageTitle>
         </div>
     );
 };
