@@ -51,7 +51,7 @@ const Register = () => {
         <div className='register-form'>
             <h2 className='text-primary text-center'>Register</h2>
             <form onSubmit={handleRegister}>
-                <input type="text" name="name" id="" placeholder='Your Name' />
+                <input type="text" name="name" id="" placeholder='Your Name' required />
                 <input type="email" name="email" id="" placeholder='Email' required />
                 <input type="password" name="password" id="" placeholder='Password' required />
                 
