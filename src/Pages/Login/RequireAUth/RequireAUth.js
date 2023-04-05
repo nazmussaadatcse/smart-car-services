@@ -27,6 +27,7 @@ const RequireAUth = ({ children }) => {
             <button className='btn btn-primary'
                 onClick={async () => {
                     const success = await sendEmailVerification();
+                    
                     if (success) {
                         toast('Sent Email');
                     }
