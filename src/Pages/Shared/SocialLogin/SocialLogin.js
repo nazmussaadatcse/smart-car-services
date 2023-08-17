@@ -23,7 +23,7 @@ const SocialLogin = () => {
 
     return (
         <div>
-            <p className='text-center text-green-900 m-2'><small>Login With</small></p>
+            <p className='text-center text-orange-900 m-2 font-semibold'><small>Login With</small></p>
             <p className='text-center'>
                 <button onClick={handleGoogleSignIn} className='btn btn-ghost shadow-lg'>Google</button>
             </p>
